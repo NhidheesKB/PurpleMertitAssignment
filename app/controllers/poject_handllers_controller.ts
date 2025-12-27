@@ -6,9 +6,12 @@ import fs from 'fs/promises'
 export default class PojectHandllersController {
   public async handleProject({ request, response, inertia, auth }: HttpContext) {
     const projectid = request.input('projectid')
-    if (!projectid) return inertia.render('home')
     try {
       const { organization_id, id } = auth.user as User
+      if (!projectid) {
+        const users = await User.query().select('fullName','id').where('organization_id',organization_id)
+        return inertia.render('home',{users})
+      }
       const projectDetails = await Projects.query()
         .where('id', projectid)
         .andWhere('organization_id', organization_id)
@@ -22,7 +25,7 @@ export default class PojectHandllersController {
       const filePath = app.makePath(projectpath, `${result.at(0)?.name}.js`)
       await fs.appendFile(filePath, '', 'utf-8')
       const content = await fs.readFile(filePath, 'utf-8')
-      return inertia.render('monaco', { result,content })
+      return inertia.render('monaco', { result, content })
     } catch (error) {
       console.log('projecthandller Error', error)
     }

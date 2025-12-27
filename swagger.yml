@@ -1,0 +1,459 @@
+openapi: "3.0.0"
+info:
+  title: "Purple Merit Assignment Swagger Docs"
+  version: "1.0.0"
+  description: ""
+components:
+  responses:
+    Forbidden:
+      description: "Access token is missing or invalid"
+    Accepted:
+      description: "The request was accepted"
+    Created:
+      description: "The resource has been created"
+    NotFound:
+      description: "The resource has been created"
+    NotAcceptable:
+      description: "The resource has been created"
+  securitySchemes:
+    BearerAuth:
+      type: "http"
+      scheme: "bearer"
+    BasicAuth:
+      type: "http"
+      scheme: "basic"
+    ApiKeyAuth:
+      type: "apiKey"
+      in: "header"
+      name: "X-API-Key"
+    cookieAuth:
+      type: "apiKey"
+      in: "cookie"
+      name: "purpleMetrit-token"
+  schemas:
+    Any:
+      description: "Any JSON object not defined as schema"
+    PaginationMeta:
+      type: "object"
+      properties:
+        total:
+          type: "number"
+          example: 100
+          nullable: false
+        page:
+          type: "number"
+          example: 2
+          nullable: false
+        perPage:
+          type: "number"
+          example: 10
+          nullable: false
+        currentPage:
+          type: "number"
+          example: 3
+          nullable: false
+        lastPage:
+          type: "number"
+          example: 10
+          nullable: false
+        firstPage:
+          type: "number"
+          example: 1
+          nullable: false
+        lastPageUrl:
+          type: "string"
+          example: "/?page=10"
+          nullable: false
+        firstPageUrl:
+          type: "string"
+          example: "/?page=1"
+          nullable: false
+        nextPageUrl:
+          type: "string"
+          example: "/?page=6"
+          nullable: false
+        previousPageUrl:
+          type: "string"
+          example: "/?page=5"
+          nullable: false
+    Job:
+      type: "object"
+      required: []
+      properties:
+        id:
+          type: "number"
+          example: 418
+        project_id:
+          type: "number"
+          example: 557
+        result:
+          type: "string"
+          example: "Lorem Ipsum"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Job (Model)"
+    Organization:
+      type: "object"
+      required: []
+      properties:
+        id:
+          type: "number"
+          example: 484
+        name:
+          type: "string"
+          example: "John Doe"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Organization (Model)"
+    Projects:
+      type: "object"
+      required: []
+      properties:
+        id:
+          type: "number"
+          example: 990
+        members:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/ProjectMember"
+            example: null
+        workspaces:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Workspace"
+            example: null
+        organization_id:
+          type: "number"
+          example: 252
+        created_by:
+          type: "number"
+          example: 745
+        name:
+          type: "string"
+          example: "John Doe"
+        description:
+          type: "string"
+          example: "Lorem ipsum dolor sit amet"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Projects (Model)"
+    ProjectMember:
+      type: "object"
+      required: []
+      properties:
+        id:
+          type: "number"
+          example: 277
+        project_id:
+          type: "number"
+          example: 887
+        user_id:
+          type: "number"
+          example: 499
+        role_id:
+          type: "number"
+          example: 176
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "ProjectMember (Model)"
+    Role:
+      type: "object"
+      required: []
+      properties:
+        id:
+          type: "number"
+          example: 15
+        name:
+          $ref: "#/components/schemas/roles"
+          example: "John Doe"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Role (Model)"
+    User:
+      type: "object"
+      required: []
+      properties:
+        id:
+          type: "number"
+          example: 965
+        organization_id:
+          type: "number"
+          example: 557
+        full_name:
+          type: "string"
+          example: "John Doe"
+        email:
+          type: "string"
+          example: "johndoe@example.com"
+          format: "email"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "User (Model)"
+    Workspace:
+      type: "object"
+      required: []
+      properties:
+        id:
+          type: "number"
+          example: 765
+        project_id:
+          type: "number"
+          example: 46
+        name:
+          type: "string"
+          example: "John Doe"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Workspace (Model)"
+    DeleteProjectValidator:
+      type: "object"
+      properties:
+        project_id:
+          type: "number"
+          example: 536
+          required: true
+      example:
+        project_id: 536
+      description: "DeleteProjectValidator (Validator)"
+    createProjectValidator:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          example: "Lorem Ipsum"
+          required: true
+          maxLength: 100
+        description:
+          type: "string"
+          example: "Lorem Ipsum"
+          required: true
+        user:
+          type: "number"
+          example: 763
+          required: true
+        role:
+          type: "number"
+          example: 689
+          required: true
+      example:
+        name: "Lorem Ipsum"
+        description: "Lorem Ipsum"
+        user: 763
+        role: 689
+      description: "createProjectValidator (Validator)"
+    loginValidator:
+      type: "object"
+      properties:
+        email:
+          type: "string"
+          example: "Lorem Ipsum"
+          required: true
+        password:
+          type: "string"
+          example: "Lorem Ipsum"
+          required: true
+      example:
+        email: "Lorem Ipsum"
+        password: "Lorem Ipsum"
+      description: "loginValidator (Validator)"
+    updateProjectValidator:
+      type: "object"
+      properties:
+        project_id:
+          type: "number"
+          example: 560
+          required: true
+        updateData:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+              example: "Lorem Ipsum"
+            description:
+              type: "string"
+              example: "Lorem Ipsum"
+          required: true
+      example:
+        project_id: 560
+        updateData:
+          name: "Lorem Ipsum"
+          description: "Lorem Ipsum"
+      description: "updateProjectValidator (Validator)"
+paths:
+  /create-project:
+    post:
+      summary: "Create (Frontend)  (create)"
+      description: "\n\n _app/controllers/createprojects_controller.ts_ - **create**"
+      parameters: []
+      tags:
+        - ""
+      responses:
+        401:
+          description: "Returns **401** (Unauthorized)"
+        403:
+          description: "Returns **403** (Forbidden)"
+      security:
+        - cookieAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createProjectValidator"
+            example:
+              name: "Lorem Ipsum"
+              description: "Lorem Ipsum"
+              user: 763
+              role: 689
+  /update-project:
+    put:
+      summary: "Update  (update)"
+      description: "\n\n _app/controllers/updateprojects_controller.ts_ - **update**"
+      parameters: []
+      tags:
+        - ""
+      responses:
+        401:
+          description: "Returns **401** (Unauthorized)"
+        403:
+          description: "Returns **403** (Forbidden)"
+      security:
+        - cookieAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateProjectValidator"
+            example:
+              project_id: 560
+              updateData:
+                name: "Lorem Ipsum"
+                description: "Lorem Ipsum"
+  /delete-project:
+    post:
+      summary: " (handledelete)"
+      description: "\n\n _app/controllers/delete_projects_controller.ts_ - **handledelete**"
+      parameters: []
+      tags:
+        - ""
+      responses:
+        401:
+          description: "Returns **401** (Unauthorized)"
+        403:
+          description: "Returns **403** (Forbidden)"
+      security:
+        - cookieAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteProjectValidator"
+            example:
+              project_id: 536
+  /available-project:
+    get:
+      summary: " (projects)"
+      description: "\n\n _app/controllers/available_projects_controller.ts_ - **projects**"
+      parameters: []
+      tags:
+        - ""
+      responses:
+        401:
+          description: "Returns **401** (Unauthorized)"
+        403:
+          description: "Returns **403** (Forbidden)"
+      security:
+        - cookieAuth:
+            - "access"
+  /:
+    get:
+      summary: " (handleProject)"
+      description: "\n\n _app/controllers/poject_handllers_controller.ts_ - **handleProject**"
+      parameters: []
+      tags:
+        - ""
+      responses:
+        401:
+          description: "Returns **401** (Unauthorized)"
+        403:
+          description: "Returns **403** (Forbidden)"
+      security:
+        - cookieAuth:
+            - "access"
+  /login:
+    get:
+      summary: "route"
+      description: "\n\n __ - ****"
+      parameters: []
+      tags: []
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json: {}
+      security: []
+    post:
+      summary: " (handleLogin)"
+      description: "\n\n _app/controllers/login_controller.ts_ - **handleLogin**"
+      parameters: []
+      tags:
+        - ""
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json: {}
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginValidator"
+            example:
+              email: "Lorem Ipsum"
+              password: "Lorem Ipsum"
+tags: []

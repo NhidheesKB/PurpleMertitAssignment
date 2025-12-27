@@ -6,25 +6,47 @@
         <h2 class="text-2xl md:text-3xl font-bold text-blue-600 mb-6 text-center">
           Add Project Details
         </h2>
-        <form class="space-y-6" action="/create-project" method="POST" @submit.prevent="handleSubmit" autocomplete="off">
+        <form
+          class="space-y-6"
+          action="/create-project"
+          method="POST"
+          @submit.prevent="handleSubmit"
+          autocomplete="off"
+        >
           <input type="hidden" name="_csrf" :value="csrfToken" />
 
           <div v-for="(field, index) in formFields" :key="index" class="relative">
             <label :for="field.toLowerCase()" class="block text-gray-700 font-medium mb-2">
-              Meeting {{ field }}
+              Project {{ field }}
             </label>
-
-            <input type='text' :id="field.toLowerCase()"
-              :name="field.toLowerCase()" :placeholder="`Enter the Project ${field}`" required
-              class="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700 shadow-sm" />
+            <select
+              v-if="['User', 'Role'].includes(field)"
+              :name="field.toLowerCase()"
+              class="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700 shadow-sm"
+            >
+              <option selected disabled value="">Select {{ field }}</option>
+              <option v-for="(value, index) in selectOptions[field]" :key="index" :value="value.id">
+                {{ value.fullName }}
+              </option>
+            </select>
+            <input
+              v-else
+              type="text"
+              :id="field.toLowerCase()"
+              :name="field.toLowerCase()"
+              :placeholder="`Enter the Project ${field}`"
+              required
+              class="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700 shadow-sm"
+            />
           </div>
 
-          <button type="submit"
-            class="w-full py-3 bg-blue-600 text-white font-semibold text-lg rounded-lg hover:bg-blue-700 transition duration-300 shadow-md">
+          <button
+            type="submit"
+            class="w-full py-3 bg-blue-600 text-white font-semibold text-lg rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
+          >
             Create Project
           </button>
         </form>
-
       </div>
     </div>
   </div>
@@ -33,12 +55,24 @@
 <script setup lang="ts">
 import type { SharedProps } from '@adonisjs/inertia/types'
 import { usePage } from '@inertiajs/vue3'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import Navbar from './component/Navbar.vue'
+import User from '#models/user'
+const props = defineProps<{
+  users: User[]
+}>()
 const page = usePage<SharedProps>()
 const csrfToken = ref(page.props.csrfToken)
+const selectOptions: Record<string, any> = {
+  User: props.users,
+  Role: [
+    { id: 1, fullName: 'Owner' },
+    { id: 2, fullName: 'Collaborator' },
+    { id: 3, fullName: 'Viewer' },
+  ],
+}
 
-const formFields = ref(['Name', 'Description'])
+const formFields = ref(['Name', 'Description', 'User', 'Role'])
 
 function handleSubmit(e: Event) {
   const form = e.target as HTMLFormElement

@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import Projects from './projects.js'
-import type{ BelongsTo } from '@adonisjs/lucid/types/relations'
+import { BaseModel,  column } from '@adonisjs/lucid/orm'
+
 
 export default class Workspace extends BaseModel {
   public static table='workspaces'
@@ -9,11 +8,6 @@ export default class Workspace extends BaseModel {
   declare id: number
   @column()
   declare project_id:number
-  // @belongsTo(() => Projects, {
-  //     foreignKey: 'project_id',
-  //     localKey: 'id',
-  //   })
-  //   declare Projects: BelongsTo<typeof Projects>
   @column()
   declare name:string
 

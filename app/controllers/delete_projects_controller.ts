@@ -3,7 +3,11 @@ import { DeleteProjectValidator } from '#validators/validator'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class DeleteProjectsController {
-  public async delete({ request, response }: HttpContext) {
+   /**
+   * @handledelete
+   * @requestBody <DeleteProjectValidator>
+   */
+  public async handledelete({ request, response }: HttpContext) {
     try {
       const { project_id } = await request.validateUsing(DeleteProjectValidator)
       await Projects.query().where('id', project_id).delete()

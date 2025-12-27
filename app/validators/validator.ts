@@ -9,9 +9,10 @@ export const loginValidator = vine.compile(
 
 export const createProjectValidator=vine.compile(
     vine.object({
-        // organization_id:vine.number(),
         name:vine.string().maxLength(100).trim(),
-        description:vine.string()
+        description:vine.string(),
+        user:vine.number(),
+        role:vine.number()
     })
 )
 
@@ -26,6 +27,6 @@ export const updateProjectValidator=vine.compile(
 )
 export const DeleteProjectValidator=vine.compile(
     vine.object({
-        project_id:vine.number(),
+        project_id:vine.number()
     })
 )

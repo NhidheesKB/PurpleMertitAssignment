@@ -14,7 +14,7 @@ router
   .group(() => {
     router.post('/create-project', [CreateprojectsController, 'create'])
     router.put('/update-project', [UpdateprojectsController, 'update'])
-    router.delete('/delete-project', [DeleteProjectsController, 'delete'])
+    router.post('/delete-project', [DeleteProjectsController, 'handledelete'])
     router
       .get('/available-project', [AvailableProjectsController, 'projects'])
       .as('availableProjects')

@@ -3,8 +3,8 @@ import app from '@adonisjs/core/services/app'
 import { defineConfig, stores } from '@adonisjs/session'
 
 const sessionConfig = defineConfig({
-  enabled: true,
-  cookieName: 'adonis-session',
+  enabled: false,
+  cookieName: 'purpleMetrit-token',
 
   /**
    * When set to true, the session id cookie will be deleted
