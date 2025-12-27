@@ -9,8 +9,6 @@ WORKDIR /www/build
 RUN npm install -g pnpm@latest-10
 COPY --from=build /build/build ./
 ENV NODE_ENV=production
-COPY .env ./.env
-
 COPY cred ./cred
 COPY package*.json ./
 RUN chmod -R 775 ./cred
