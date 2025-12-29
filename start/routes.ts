@@ -2,6 +2,7 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import AutoSwagger from 'adonis-autoswagger'
 import swagger from '#config/swagger'
+import { throttle } from './limiter.js'
 
 const LoginController = () => import('#controllers/login_controller')
 const CreateprojectsController = () => import('#controllers/createprojects_controller')
@@ -21,7 +22,7 @@ router
     router.get('/', [PojectHandllersController, 'handleProject']).as('projectHandller')
     router.ws('/editor/:organizationId/:projectName/:roleId',[WebsockethandllersController,'handleSocket'])
   })
-  .use(middleware.auth())
+  .use(middleware.auth()).use(throttle)
 
 router.on('/login').renderInertia('login')
 router.post('/login', [LoginController, 'handleLogin'])

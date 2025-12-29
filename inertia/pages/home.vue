@@ -57,7 +57,7 @@ import type { SharedProps } from '@adonisjs/inertia/types'
 import { usePage } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import Navbar from './component/Navbar.vue'
-import User from '#models/user'
+import type User from '#models/user'
 const props = defineProps<{
   users: User[]
 }>()
